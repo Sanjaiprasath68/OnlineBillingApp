@@ -25,7 +25,7 @@ serverApp.use(rateLimit({
   message: 'Too many requests from this IP, please try again later.'
 }));
 
-serverApp.get('/',(req,reds)=>{
+serverApp.get('/hi',(req,res)=>{
   res.send("Hi")
 });
 
