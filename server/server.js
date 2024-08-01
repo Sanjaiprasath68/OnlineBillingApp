@@ -25,6 +25,10 @@ serverApp.use(rateLimit({
   message: 'Too many requests from this IP, please try again later.'
 }));
 
+serverApp.get('/',(req,reds)=>{
+  res.send("Hi")
+});
+
 // API routes
 serverApp.use('/items', productsRouter);
 serverApp.use('/bills', billsRouter);
