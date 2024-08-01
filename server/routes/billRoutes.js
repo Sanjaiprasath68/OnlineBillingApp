@@ -1,0 +1,30 @@
+const express = require('express');
+const router = express.Router();
+const Bill = require('../models/Bill');
+
+router.post('/', async (req, res) => {
+  const { customerName, contactNumber, selectedProducts, totalAmount, printDetails } = req.body;
+
+  // Basic validation
+  if (!customerName || !contactNumber || !selectedProducts || !totalAmount || !printDetails) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  try {
+    const newBill = new Bill({
+      customerName,
+      contactNumber,
+      selectedProducts,
+      totalAmount,
+      printDetails,
+    });
+
+    const savedBill = await newBill.save();
+    res.status(201).json(savedBill);
+  } catch (error) {
+    console.error('Error storing bill:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+module.exports = router;
