@@ -23,30 +23,31 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create a new bill
-router.post('/', async (req, res) => {
-  const { customerName, contactNumber, selectedProducts, totalAmount, printDetails } = req.body;
+// Create a new billrouter.post('/', async (req, res) => {
+  const { customerName, contactNumber, selectedProducts, totalAmount, serialNumber, printDetails } = req.body;
 
-  if (!customerName || !contactNumber || !selectedProducts || !totalAmount || !printDetails) {
+  if (!customerName || !contactNumber || !selectedProducts || !totalAmount || !serialNumber || !printDetails) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  const bill = new Bill({
-    customerName,
-    contactNumber,
-    selectedProducts,
-    totalAmount,
-    printDetails,
-  });
-
   try {
-    const newBill = await bill.save();
-    res.status(201).json(newBill);
+    const createdAt = new Date(); // Current date and time
+    const newBill = new Bill({
+      customerName,
+      contactNumber,
+      selectedProducts,
+      totalAmount,
+      serialNumber,
+      createdAt,
+      printDetails,
+
+    const savedBill = await newBill.save();
+    res.status(201).json(savedBill);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error('Error storing bill:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 // Delete a bill
 router.delete('/:id', async (req, res) => {
   try {
