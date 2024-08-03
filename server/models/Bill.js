@@ -14,7 +14,6 @@ const billSchema = new mongoose.Schema({
     },
   ],
   totalAmount: { type: Number, required: true },
-  serialNumber: { type: Number, required: true },
   printDetails: { type: String, required: true },
 });
 
