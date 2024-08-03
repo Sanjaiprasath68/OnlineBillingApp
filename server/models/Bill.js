@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const billSchema = new mongoose.Schema({
   customerName: { type: String, required: true },
   contactNumber: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }, // Add createdAt field
   selectedProducts: [
     {
       name: String,
@@ -13,6 +14,7 @@ const billSchema = new mongoose.Schema({
     },
   ],
   totalAmount: { type: Number, required: true },
+  serialNumber: { type: Number, required: true },
   printDetails: { type: String, required: true },
 });
 
